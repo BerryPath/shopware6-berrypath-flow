@@ -167,10 +167,24 @@ class CustomFieldsInstaller
 
     public function addRelations(Context $context): void
     {
-        $this->customFieldSetRelationRepository->upsert(array_map(static fn (string $customFieldSetId): array => [
-            'customFieldSetId' => $customFieldSetId,
-            'entityName' => 'product',
-        ], $this->getCustomFieldSetIds($context)), $context);
+        $relations = [];
+
+        foreach ($this->getCustomFieldSetIds($context) as $customFieldSetId) {
+            if ($this->hasProductRelation($customFieldSetId, $context)) {
+                continue;
+            }
+
+            $relations[] = [
+                'customFieldSetId' => $customFieldSetId,
+                'entityName' => 'product',
+            ];
+        }
+
+        if ($relations === []) {
+            return;
+        }
+
+        $this->customFieldSetRelationRepository->upsert($relations, $context);
     }
 
     /**
@@ -230,5 +244,15 @@ class CustomFieldsInstaller
         }
 
         return $ids;
+    }
+
+    private function hasProductRelation(string $customFieldSetId, Context $context): bool
+    {
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('customFieldSetId', $customFieldSetId));
+        $criteria->addFilter(new EqualsFilter('entityName', 'product'));
+        $criteria->setLimit(1);
+
+        return $this->customFieldSetRelationRepository->searchIds($criteria, $context)->getTotal() > 0;
     }
 }
