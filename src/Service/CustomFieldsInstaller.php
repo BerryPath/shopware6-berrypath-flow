@@ -6,7 +6,9 @@ use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\System\CustomField\CustomFieldEntity;
 use Shopware\Core\System\CustomField\CustomFieldTypes;
 
 class CustomFieldsInstaller
@@ -148,17 +150,19 @@ class CustomFieldsInstaller
 
     /**
      * @param EntityRepository<\Shopware\Core\System\CustomField\Aggregate\CustomFieldSet\CustomFieldSetCollection> $customFieldSetRepository
+     * @param EntityRepository<\Shopware\Core\System\CustomField\CustomFieldCollection> $customFieldRepository
      * @param EntityRepository<\Shopware\Core\System\CustomField\Aggregate\CustomFieldSetRelation\CustomFieldSetRelationCollection> $customFieldSetRelationRepository
      */
     public function __construct(
         private readonly EntityRepository $customFieldSetRepository,
+        private readonly EntityRepository $customFieldRepository,
         private readonly EntityRepository $customFieldSetRelationRepository
     ) {
     }
 
     public function install(Context $context): void
     {
-        $this->customFieldSetRepository->upsert([self::CUSTOM_FIELDSET], $context);
+        $this->customFieldSetRepository->upsert([$this->buildCustomFieldSetPayload($context)], $context);
     }
 
     public function addRelations(Context $context): void
@@ -178,5 +182,53 @@ class CustomFieldsInstaller
         $criteria->addFilter(new EqualsFilter('name', self::CUSTOM_FIELDSET_NAME));
 
         return $this->customFieldSetRepository->searchIds($criteria, $context)->getIds();
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function buildCustomFieldSetPayload(Context $context): array
+    {
+        $payload = self::CUSTOM_FIELDSET;
+        $customFieldSetId = $this->getCustomFieldSetIds($context)[0] ?? null;
+
+        if ($customFieldSetId) {
+            $payload['id'] = $customFieldSetId;
+        }
+
+        $customFieldIds = $this->getCustomFieldIds($context);
+
+        foreach ($payload['customFields'] as &$customField) {
+            $customFieldId = $customFieldIds[$customField['name']] ?? null;
+
+            if ($customFieldId) {
+                $customField['id'] = $customFieldId;
+            }
+        }
+
+        unset($customField);
+
+        return $payload;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function getCustomFieldIds(Context $context): array
+    {
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsAnyFilter('name', array_column(self::CUSTOM_FIELDSET['customFields'], 'name')));
+
+        $ids = [];
+
+        foreach ($this->customFieldRepository->search($criteria, $context) as $customField) {
+            if (!$customField instanceof CustomFieldEntity) {
+                continue;
+            }
+
+            $ids[$customField->getName()] = $customField->getId();
+        }
+
+        return $ids;
     }
 }

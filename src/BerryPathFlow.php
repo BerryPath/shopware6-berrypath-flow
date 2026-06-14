@@ -40,6 +40,7 @@ class BerryPathFlow extends Plugin
 
         return new CustomFieldsInstaller(
             $this->container->get('custom_field_set.repository'),
+            $this->container->get('custom_field.repository'),
             $this->container->get('custom_field_set_relation.repository')
         );
     }
