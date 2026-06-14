@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/berrypathflow/administration/",
+  "entryPoints": {
+    "berry-path-flow": {
+      "css": [
+        "/bundles/berrypathflow/administration/assets/berry-path-flow-PmcUxjcc.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/berrypathflow/administration/assets/berry-path-flow-IFwlki8I.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}

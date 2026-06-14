@@ -1,0 +1,16 @@
+{
+  "sw-cms": {
+    "blocks": {
+      "commerce": {
+        "berrypath-flow": {
+          "label": "BerryPath Flow"
+        }
+      }
+    },
+    "elements": {
+      "berrypath-flow": {
+        "label": "BerryPath Flow"
+      }
+    }
+  }
+}

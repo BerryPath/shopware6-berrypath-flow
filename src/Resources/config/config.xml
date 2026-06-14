@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>BerryPath Flow</title>
+        <title lang="nl-NL">BerryPath Flow</title>
+        <title lang="de-DE">BerryPath Flow</title>
+
+        <input-field type="bool">
+            <name>enabled</name>
+            <label>Enable BerryPath Flow</label>
+            <label lang="nl-NL">BerryPath Flow inschakelen</label>
+            <label lang="de-DE">BerryPath Flow aktivieren</label>
+            <helpText>Enable or disable all BerryPath Flow widgets globally.</helpText>
+            <helpText lang="nl-NL">Schakel alle BerryPath Flow widgets globaal in of uit.</helpText>
+            <helpText lang="de-DE">Aktiviert oder deaktiviert alle BerryPath Flow widgets global.</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="text">
+            <name>defaultMarket</name>
+            <label>Default market code</label>
+            <label lang="nl-NL">Standaard market code</label>
+            <label lang="de-DE">Standard-Marketcode</label>
+            <helpText>Optional market code passed to BerryPath when the CMS element has no market override.</helpText>
+            <helpText lang="nl-NL">Optionele market code die naar BerryPath gaat wanneer het CMS-element geen eigen market override heeft.</helpText>
+            <helpText lang="de-DE">Optionaler Marketcode, der an BerryPath übergeben wird, wenn das CMS-Element keinen eigenen Market Override hat.</helpText>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>productIdSource</name>
+            <label>Product ID source</label>
+            <label lang="nl-NL">Product ID bron</label>
+            <label lang="de-DE">Product ID Quelle</label>
+            <helpText>Choose which Shopware product identifier is sent to BerryPath.</helpText>
+            <helpText lang="nl-NL">Kies welke Shopware productidentifier naar BerryPath wordt gestuurd.</helpText>
+            <helpText lang="de-DE">Wähle, welche Shopware Produktkennung an BerryPath gesendet wird.</helpText>
+            <defaultValue>productNumber</defaultValue>
+            <options>
+                <option>
+                    <id>productNumber</id>
+                    <name>Product number</name>
+                    <name lang="nl-NL">Productnummer</name>
+                    <name lang="de-DE">Produktnummer</name>
+                </option>
+                <option>
+                    <id>productId</id>
+                    <name>Product ID</name>
+                    <name lang="nl-NL">Product ID</name>
+                    <name lang="de-DE">Product ID</name>
+                </option>
+                <option>
+                    <id>parentId</id>
+                    <name>Parent product ID</name>
+                    <name lang="nl-NL">Parent product ID</name>
+                    <name lang="de-DE">Parent product ID</name>
+                </option>
+                <option>
+                    <id>ean</id>
+                    <name>EAN</name>
+                    <name lang="nl-NL">EAN</name>
+                    <name lang="de-DE">EAN</name>
+                </option>
+                <option>
+                    <id>manufacturerNumber</id>
+                    <name>Manufacturer number</name>
+                    <name lang="nl-NL">Fabrikantnummer</name>
+                    <name lang="de-DE">Herstellernummer</name>
+                </option>
+                <option>
+                    <id>productName</id>
+                    <name>Product name</name>
+                    <name lang="nl-NL">Productnaam</name>
+                    <name lang="de-DE">Produktname</name>
+                </option>
+            </options>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Success pixel</title>
+        <title lang="nl-NL">Success pixel</title>
+        <title lang="de-DE">Success pixel</title>
+
+        <input-field type="bool">
+            <name>successPixelEnabled</name>
+            <label>Enable success pixel</label>
+            <label lang="nl-NL">Success pixel inschakelen</label>
+            <label lang="de-DE">Success pixel aktivieren</label>
+            <helpText>Send BerryPath assisted conversion data on the Shopware checkout finish page.</helpText>
+            <helpText lang="nl-NL">Verstuur BerryPath geassisteerde conversiedata op de Shopware checkout finish page.</helpText>
+            <helpText lang="de-DE">Sendet BerryPath Conversion-Daten auf der Shopware Checkout-Finish-Seite.</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+    </card>
+</config>

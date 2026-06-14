@@ -1,0 +1,76 @@
+{% block component_berrypath_flow_widget %}
+    {% set berryPathFlowToken = berryPathFlowToken|default('') %}
+    {% set berryPathFlowViewType = berryPathFlowViewType|default('popup') %}
+    {% set berryPathFlowViewType = berryPathFlowViewType in ['inline', 'popup', 'sidebar'] ? berryPathFlowViewType : 'popup' %}
+    {% set berryPathFlowTitle = berryPathFlowTitle|default('') %}
+    {% set berryPathFlowDescription = berryPathFlowDescription|default('') %}
+    {% set berryPathFlowCtaText = berryPathFlowCtaText|default('Start the choice helper') %}
+    {% set berryPathFlowMarket = berryPathFlowMarket|default(config('BerryPathFlow.config.defaultMarket') ?: '') %}
+    {% set berryPathFlowClass = berryPathFlowClass|default('') %}
+    {% set isoCode = page.header.activeLanguage.translationCode.code|default('')|lower|split('-') %}
+    {% set berryPathFlowLocale = berryPathFlowLocale|default(isoCode[0]|default('')) %}
+    {% set berryPathFlowProduct = berryPathFlowProduct|default(null) %}
+    {% set productIdSource = config('BerryPathFlow.config.productIdSource') ?: 'productNumber' %}
+    {% set currentProductId = '' %}
+
+    {% if berryPathFlowProduct %}
+        {% if productIdSource == 'productId' or productIdSource == 'referencedId' %}
+            {% set currentProductId = berryPathFlowProduct.id|default('') %}
+        {% elseif productIdSource == 'parentId' %}
+            {% set currentProductId = berryPathFlowProduct.parentId|default('') %}
+        {% elseif productIdSource == 'ean' %}
+            {% set currentProductId = berryPathFlowProduct.ean|default('') %}
+        {% elseif productIdSource == 'manufacturerNumber' %}
+            {% set currentProductId = berryPathFlowProduct.manufacturerNumber|default('') %}
+        {% elseif productIdSource == 'productName' %}
+            {% set currentProductId = berryPathFlowProduct.translated.name|default(berryPathFlowProduct.name|default('')) %}
+        {% else %}
+            {% set currentProductId = berryPathFlowProduct.productNumber|default('') %}
+        {% endif %}
+    {% endif %}
+
+    {% if config('BerryPathFlow.config.enabled') is not same as(false) and berryPathFlowToken %}
+        <div class="berrypath-flow-widget-wrapper"
+             data-berrypath-flow-widget>
+            <div class="berrypath-flow-widget berrypath-flow-widget--{{ berryPathFlowViewType|e('html_attr') }}{% if berryPathFlowClass %} {{ berryPathFlowClass|e('html_attr') }}{% endif %}">
+                {% if berryPathFlowTitle or berryPathFlowDescription %}
+                    <div class="berrypath-flow-widget__content">
+                        {% if berryPathFlowTitle %}
+                            <div class="berrypath-flow-widget__title">
+                                {{ berryPathFlowTitle }}
+                            </div>
+                        {% endif %}
+
+                        {% if berryPathFlowDescription %}
+                            <div class="berrypath-flow-widget__description">
+                                {{ berryPathFlowDescription }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <div class="berrypath-flow-widget__actions">
+                    {% if berryPathFlowViewType == 'inline' %}
+                        <div class="berrypath-flow-widget__embed"
+                             data-berrypath-flow="{{ berryPathFlowToken|e('html_attr') }}"
+                             data-berrypath-type="inline"
+                             {% if berryPathFlowLocale %}data-berrypath-locale="{{ berryPathFlowLocale|e('html_attr') }}"{% endif %}
+                             {% if berryPathFlowMarket %}data-berrypath-market="{{ berryPathFlowMarket|e('html_attr') }}"{% endif %}
+                             {% if currentProductId %}data-berrypath-product-id="{{ currentProductId|e('html_attr') }}"{% endif %}>
+                        </div>
+                    {% else %}
+                        <button type="button"
+                                class="btn btn-secondary berrypath-flow-widget__button"
+                                data-berrypath-flow="{{ berryPathFlowToken|e('html_attr') }}"
+                                data-berrypath-type="{{ berryPathFlowViewType|e('html_attr') }}"
+                                {% if berryPathFlowLocale %}data-berrypath-locale="{{ berryPathFlowLocale|e('html_attr') }}"{% endif %}
+                                {% if berryPathFlowMarket %}data-berrypath-market="{{ berryPathFlowMarket|e('html_attr') }}"{% endif %}
+                                {% if currentProductId %}data-berrypath-product-id="{{ currentProductId|e('html_attr') }}"{% endif %}>
+                            {{ berryPathFlowCtaText }}
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

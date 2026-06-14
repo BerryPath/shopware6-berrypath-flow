@@ -1,0 +1,63 @@
+{% sw_extends '@Storefront/storefront/page/checkout/finish/index.html.twig' %}
+
+{% block page_checkout_main_content %}
+    {{ parent() }}
+
+    {% block page_checkout_main_content_berrypath_success_pixel %}
+        {% set globalEnabled = config('BerryPathFlow.config.enabled') %}
+        {% set successPixelEnabled = config('BerryPathFlow.config.successPixelEnabled') %}
+        {% set order = page.order %}
+
+        {% if globalEnabled is not same as(false) and successPixelEnabled is not same as(false) and order %}
+            {% set productIdSource = config('BerryPathFlow.config.productIdSource') ?: 'productNumber' %}
+
+            <script src="https://www.berrypath.eu/embed/berrypath.js"></script>
+            <script>
+                (function () {
+                    var items = [];
+                    var seen = {};
+
+                    function addProductId(value) {
+                        value = String(value || '').trim();
+
+                        if (!value || seen[value]) {
+                            return;
+                        }
+
+                        seen[value] = true;
+                        items.push({ product_id: value });
+                    }
+
+                    {% for lineItem in order.nestedLineItems %}
+                        {% if lineItem.type === 'product' %}
+                            {% if productIdSource == 'productId' and lineItem.payload.productId is defined and lineItem.payload.productId %}
+                                addProductId({{ lineItem.payload.productId|json_encode|raw }});
+                            {% elseif productIdSource == 'referencedId' and lineItem.referencedId %}
+                                addProductId({{ lineItem.referencedId|json_encode|raw }});
+                            {% elseif productIdSource == 'parentId' and lineItem.payload.parentId is defined and lineItem.payload.parentId %}
+                                addProductId({{ lineItem.payload.parentId|json_encode|raw }});
+                            {% elseif productIdSource == 'ean' and lineItem.payload.ean is defined and lineItem.payload.ean %}
+                                addProductId({{ lineItem.payload.ean|json_encode|raw }});
+                            {% elseif productIdSource == 'manufacturerNumber' and lineItem.payload.manufacturerNumber is defined and lineItem.payload.manufacturerNumber %}
+                                addProductId({{ lineItem.payload.manufacturerNumber|json_encode|raw }});
+                            {% elseif productIdSource == 'productName' and lineItem.label %}
+                                addProductId({{ lineItem.label|json_encode|raw }});
+                            {% elseif lineItem.payload.productNumber is defined and lineItem.payload.productNumber %}
+                                addProductId({{ lineItem.payload.productNumber|json_encode|raw }});
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    if (items.length === 0 || !window.BerryPath || typeof window.BerryPath.conversion !== 'function') {
+                        return;
+                    }
+
+                    window.BerryPath.conversion({
+                        order_total: {{ order.amountTotal|number_format(2, '.', '') }},
+                        items: items
+                    });
+                }());
+            </script>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,95 @@
+$berrypath-flow-widget-bg: #f4f5f7 !default;
+$berrypath-flow-widget-border-radius: 5px !default;
+$berrypath-flow-widget-padding: 1.5rem !default;
+$berrypath-flow-widget-padding-md: 2rem !default;
+$berrypath-flow-widget-title-color: $primary !default;
+$berrypath-flow-widget-title-font-size: $h4-font-size !default;
+$berrypath-flow-widget-title-font-size-md: $h3-font-size !default;
+$berrypath-flow-widget-title-line-height: 1.25 !default;
+$berrypath-flow-widget-title-margin-bottom: .35rem !default;
+$berrypath-flow-widget-description-color: $body-color !default;
+$berrypath-flow-widget-description-margin-bottom: 1rem !default;
+$berrypath-flow-widget-button-width: 100% !default;
+$berrypath-flow-widget-button-width-md: auto !default;
+$berrypath-flow-widget-inline-min-height: 286px !default;
+$berrypath-flow-widget-buybox-margin-top: 1rem !default;
+$berrypath-flow-widget-buybox-margin-bottom: 1rem !default;
+$berrypath-flow-widget-product-detail-padding: 1rem !default;
+$berrypath-flow-widget-product-detail-padding-md: 1rem !default;
+$berrypath-flow-widget-product-detail-title-font-size: $font-size-lg !default;
+$berrypath-flow-widget-product-detail-title-font-size-md: $font-size-lg !default;
+$berrypath-flow-widget-product-detail-description-font-size: $font-size-sm !default;
+$berrypath-flow-widget-product-detail-button-width: 100% !default;
+
+.berrypath-flow-widget-buybox {
+    margin-top: $berrypath-flow-widget-buybox-margin-top;
+    margin-bottom: $berrypath-flow-widget-buybox-margin-bottom;
+}
+
+.berrypath-flow-widget {
+    display: flex;
+    flex-direction: column;
+    background-color: $berrypath-flow-widget-bg;
+    border-radius: $berrypath-flow-widget-border-radius;
+    padding: $berrypath-flow-widget-padding;
+
+    @include media-breakpoint-up(md) {
+        padding: $berrypath-flow-widget-padding-md;
+    }
+
+    &__title {
+        color: $berrypath-flow-widget-title-color;
+        font-family: $sw-font-family-headline;
+        font-size: $berrypath-flow-widget-title-font-size;
+        line-height: $berrypath-flow-widget-title-line-height;
+        margin-bottom: $berrypath-flow-widget-title-margin-bottom;
+
+        @include media-breakpoint-up(md) {
+            font-size: $berrypath-flow-widget-title-font-size-md;
+        }
+    }
+
+    &__description {
+        color: $berrypath-flow-widget-description-color;
+    }
+
+    &__content {
+        margin-bottom: $berrypath-flow-widget-description-margin-bottom;
+    }
+
+    &__button {
+        width: $berrypath-flow-widget-button-width;
+
+        @include media-breakpoint-up(md) {
+            width: $berrypath-flow-widget-button-width-md;
+        }
+    }
+
+    &__embed {
+        min-height: $berrypath-flow-widget-inline-min-height;
+    }
+
+    &--product-detail {
+        padding: $berrypath-flow-widget-product-detail-padding;
+
+        @include media-breakpoint-up(md) {
+            padding: $berrypath-flow-widget-product-detail-padding-md;
+        }
+    }
+
+    &--product-detail &__title {
+        font-size: $berrypath-flow-widget-product-detail-title-font-size;
+
+        @include media-breakpoint-up(md) {
+            font-size: $berrypath-flow-widget-product-detail-title-font-size-md;
+        }
+    }
+
+    &--product-detail &__description {
+        font-size: $berrypath-flow-widget-product-detail-description-font-size;
+    }
+
+    &--product-detail &__button {
+        width: $berrypath-flow-widget-product-detail-button-width;
+    }
+}

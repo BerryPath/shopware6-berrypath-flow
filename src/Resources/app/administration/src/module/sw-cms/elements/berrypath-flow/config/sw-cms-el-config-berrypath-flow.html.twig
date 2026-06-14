@@ -1,0 +1,43 @@
+{% block sw_cms_element_berrypath_flow_config %}
+    <div class="sw-cms-el-config-berrypath-flow">
+        <mt-text-field
+            v-model="element.config.flowToken.value"
+            label="Flow UUID"
+        />
+
+        <sw-single-select
+            v-model:value="element.config.viewType.value"
+            :options="viewTypeOptions"
+            label="Display type"
+        />
+
+        <mt-text-field
+            v-model="element.config.title.value"
+            label="Title"
+        />
+
+        <mt-text-field
+            v-model="element.config.description.value"
+            label="Description"
+        />
+
+        <template v-if="element.config.viewType.value !== 'inline'">
+            <mt-text-field
+                v-model="element.config.ctaText.value"
+                label="Button text"
+            />
+        </template>
+
+        <mt-text-field
+            v-model="element.config.market.value"
+            label="Market override"
+            helpText="Optional. Falls back to the plugin default market code."
+        />
+
+        <mt-text-field
+            v-model="element.config.locale.value"
+            label="Locale override"
+            helpText="Optional. Falls back to the active storefront language."
+        />
+    </div>
+{% endblock %}

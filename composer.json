@@ -1,0 +1,44 @@
+{
+    "name": "berrypath/shopware6-berrypath-flow",
+    "description": "Shopware 6 plugin for BerryPath Flow widgets.",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "BerryPath\\Flow\\BerryPathFlow",
+        "label": {
+            "de-DE": "BerryPath Flow",
+            "en-GB": "BerryPath Flow",
+            "nl-NL": "BerryPath Flow"
+        },
+        "description": {
+            "de-DE": "Bindet BerryPath Flow widgets in Shopware 6 Shopping Experiences und Conversion Tracking ein.",
+            "en-GB": "Adds BerryPath Flow widgets to Shopware 6 Shopping Experiences and conversion tracking.",
+            "nl-NL": "Voegt BerryPath Flow widgets toe aan Shopware 6 Shopping Experiences en conversietracking."
+        },
+        "manufacturerLink": {
+            "de-DE": "https://www.berrypath.eu",
+            "en-GB": "https://www.berrypath.eu",
+            "nl-NL": "https://www.berrypath.eu"
+        },
+        "supportLink": {
+            "de-DE": "https://www.berrypath.eu",
+            "en-GB": "https://www.berrypath.eu",
+            "nl-NL": "https://www.berrypath.eu"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "BerryPath\\Flow\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "BerryPath",
+            "homepage": "https://www.berrypath.eu"
+        }
+    ]
+}

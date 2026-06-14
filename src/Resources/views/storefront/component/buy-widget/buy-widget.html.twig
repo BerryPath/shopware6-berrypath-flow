@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
+
+{% block buy_widget_ordernumber_container %}
+    {{ parent() }}
+
+    {% set berryPathCustomFields = product.translated.customFields|default(product.customFields|default({})) %}
+    {% set berryPathProductDetailFlowToken = berryPathCustomFields.berrypath_flow_uuid|default('') %}
+
+    {% if berryPathProductDetailFlowToken %}
+        <div class="berrypath-flow-widget-buybox">
+            {% sw_include '@BerryPathFlow/storefront/component/berrypath-flow/widget.html.twig' with {
+                berryPathFlowToken: berryPathProductDetailFlowToken,
+                berryPathFlowViewType: berryPathCustomFields.berrypath_flow_display_type|default('popup'),
+                berryPathFlowTitle: berryPathCustomFields.berrypath_flow_title|default('Need help choosing?'),
+                berryPathFlowDescription: berryPathCustomFields.berrypath_flow_description|default('Answer a few short questions and quickly find the product that fits you.'),
+                berryPathFlowCtaText: berryPathCustomFields.berrypath_flow_cta_text|default('Start the choice helper'),
+                berryPathFlowMarket: berryPathCustomFields.berrypath_flow_market|default(''),
+                berryPathFlowProduct: product,
+                berryPathFlowClass: 'berrypath-flow-widget--product-detail'
+            } %}
+        </div>
+    {% endif %}
+{% endblock %}
