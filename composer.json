@@ -1,6 +1,6 @@
 {
     "name": "berrypath/shopware6-berrypath-flow",
-    "description": "Shopware 6 plugin for BerryPath Flow widgets.",
+    "description": "BerryPath guided selling flows and product finders for Shopware 6.",
     "type": "shopware-platform-plugin",
     "version": "1.0.0",
     "license": "MIT",
