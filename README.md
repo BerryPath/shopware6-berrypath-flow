@@ -40,22 +40,26 @@ A BerryPath account is required to build and publish guided selling flows.
 ## Requirements
 
 - Shopware 6.7.
-- Composer access to the BerryPath package.
+- A BerryPath account (a free plan is available).
 - A published BerryPath guided selling flow.
 
 ## Installation
 
+Install and activate `BerryPath Flow` through the Shopware Extension Manager.
+
+For Composer-based installations:
+
 ```bash
 composer require berrypath/shopware6-berrypath-flow
 bin/console plugin:refresh
-bin/console plugin:install --activate BerryPathFlow
+bin/console plugin:install --activate SidworksBerryPathFlow
 bin/console cache:clear
 ```
 
 For local `custom/plugins` development, place the plugin at:
 
 ```text
-custom/plugins/BerryPathFlow
+custom/plugins/SidworksBerryPathFlow
 ```
 
 Rebuild the Shopware administration and storefront assets when installing from source instead of the Composer package.
@@ -88,9 +92,9 @@ If no BerryPath Flow UUID is configured for the current placement, the plugin re
 
 ## External service and privacy
 
-The plugin loads the [BerryPath embed script](https://www.berrypath.eu/embed/berrypath.js) when a guided selling flow or assisted conversion event is used. BerryPath receives the configured flow token, locale, market code, and product identifier required to display and match the selected flow.
+The plugin loads the [BerryPath embed script](https://www.berrypath.eu/embed/berrypath.js) when a guided selling flow or assisted conversion event is used. BerryPath receives the configured flow token, locale, market code, product identifier, IP address, device information, flow answers, interactions, and technical events required to provide and measure the selected flow.
 
-When assisted conversion measurement is enabled, the Shopware checkout finish page sends the order total and configured product identifiers to BerryPath. Customer names, email addresses, postal addresses, and payment details are not included. Measurement can be disabled in the plugin settings.
+Assisted conversion measurement is disabled by default. When the merchant enables it, the Shopware checkout finish page sends the order total and configured product identifiers to BerryPath. Customer names, email addresses, postal addresses, and payment details are not included. The merchant remains responsible for the appropriate legal basis, privacy information, and consent mechanism where required.
 
 - Service provider: [BerryPath](https://www.berrypath.eu)
 - [Terms and conditions](https://www.berrypath.eu/terms)
@@ -114,6 +118,10 @@ Place guided selling in Shopware Shopping Experiences and product pages:
 
 ![Product page widget](docs/screenshots/product-widget.png)
 
+## Uninstallation
+
+When `Remove all app data` is selected, the plugin removes its custom-field definitions and BerryPath CMS slots. Product custom-field values may remain in Shopware's product data as permitted by Shopware's extension lifecycle guidelines.
+
 ## License
 
-MIT. See [LICENSE](LICENSE).
+Proprietary. See [LICENSE](LICENSE).

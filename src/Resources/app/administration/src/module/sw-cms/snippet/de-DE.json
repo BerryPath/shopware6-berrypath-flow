@@ -1,0 +1,52 @@
+{
+  "berrypath-flow": {
+    "onboarding": {
+      "title": "Hallo {userName}, willkommen bei BerryPath!",
+      "titleFallback": "Willkommen bei BerryPath!",
+      "intro": "Der Einstieg mit BerryPath ist ganz einfach!",
+      "steps": {
+        "account": "Erstellen Sie ein kostenloses BerryPath-Konto.",
+        "flow": "Erstellen und veröffentlichen Sie einen Flow und fügen Sie anschließend Ihre Shopware-Storefront-Domain unter Team → Erlaubte Embed-Domains hinzu.",
+        "placement": "Fügen Sie das BerryPath-Flow-Element unter Inhalte → Erlebniswelten hinzu oder tragen Sie eine Flow-UUID in den BerryPath-Feldern eines Produkts ein.",
+        "settings": "Konfigurieren Sie unten optional Market, Produkt-ID-Quelle und unterstützte Conversion-Messung."
+      },
+      "actions": {
+        "openBerryPath": "BerryPath öffnen",
+        "documentation": "Dokumentation"
+      }
+    }
+  },
+  "sw-cms": {
+    "blocks": {
+      "commerce": {
+        "berrypath-flow": {
+          "label": "BerryPath Flow"
+        }
+      }
+    },
+    "elements": {
+      "berrypath-flow": {
+        "label": "BerryPath Flow",
+        "configured": "Flow-UUID: {flowToken}",
+        "notConfigured": "Geben Sie eine Flow-UUID ein, um dieses Widget im Storefront anzuzeigen.",
+        "fields": {
+          "flowToken": "Flow-UUID",
+          "flowTokenHelp": "Kopieren Sie die UUID eines veröffentlichten Flows aus BerryPath.",
+          "viewType": "Anzeigetyp",
+          "title": "Titel",
+          "description": "Beschreibung",
+          "ctaText": "Buttontext",
+          "market": "Market-Override",
+          "marketHelp": "Optional. Verwendet andernfalls den Standard-Marketcode aus der Plugin-Konfiguration.",
+          "locale": "Locale-Override",
+          "localeHelp": "Optional. Verwendet andernfalls die aktive Storefront-Sprache."
+        },
+        "viewTypes": {
+          "popup": "Popup",
+          "inline": "Inline",
+          "sidebar": "Seitenleiste"
+        }
+      }
+    }
+  }
+}

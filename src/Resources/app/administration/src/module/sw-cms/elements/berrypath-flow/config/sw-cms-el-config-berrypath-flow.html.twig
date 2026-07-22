@@ -2,42 +2,44 @@
     <div class="sw-cms-el-config-berrypath-flow">
         <mt-text-field
             v-model="element.config.flowToken.value"
-            label="Flow UUID"
+            :label="$tc('sw-cms.elements.berrypath-flow.fields.flowToken')"
+            :help-text="$tc('sw-cms.elements.berrypath-flow.fields.flowTokenHelp')"
+            required
         />
 
         <sw-single-select
             v-model:value="element.config.viewType.value"
             :options="viewTypeOptions"
-            label="Display type"
+            :label="$tc('sw-cms.elements.berrypath-flow.fields.viewType')"
         />
 
         <mt-text-field
             v-model="element.config.title.value"
-            label="Title"
+            :label="$tc('sw-cms.elements.berrypath-flow.fields.title')"
         />
 
         <mt-text-field
             v-model="element.config.description.value"
-            label="Description"
+            :label="$tc('sw-cms.elements.berrypath-flow.fields.description')"
         />
 
         <template v-if="element.config.viewType.value !== 'inline'">
             <mt-text-field
                 v-model="element.config.ctaText.value"
-                label="Button text"
+                :label="$tc('sw-cms.elements.berrypath-flow.fields.ctaText')"
             />
         </template>
 
         <mt-text-field
             v-model="element.config.market.value"
-            label="Market override"
-            helpText="Optional. Falls back to the plugin default market code."
+            :label="$tc('sw-cms.elements.berrypath-flow.fields.market')"
+            :help-text="$tc('sw-cms.elements.berrypath-flow.fields.marketHelp')"
         />
 
         <mt-text-field
             v-model="element.config.locale.value"
-            label="Locale override"
-            helpText="Optional. Falls back to the active storefront language."
+            :label="$tc('sw-cms.elements.berrypath-flow.fields.locale')"
+            :help-text="$tc('sw-cms.elements.berrypath-flow.fields.localeHelp')"
         />
     </div>
 {% endblock %}

@@ -1,0 +1,10 @@
+{
+  "berrypath-flow": {
+    "widget": {
+      "defaultTitle": "Benötigen Sie Hilfe bei der Auswahl?",
+      "defaultDescription": "Beantworten Sie einige kurze Fragen und finden Sie schnell das passende Produkt.",
+      "defaultCta": "Auswahlhilfe starten",
+      "loadError": "Die Auswahlhilfe ist derzeit nicht verfügbar. Bitte versuchen Sie es später erneut."
+    }
+  }
+}

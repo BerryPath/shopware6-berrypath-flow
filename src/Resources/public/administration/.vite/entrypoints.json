@@ -1,13 +1,13 @@
 {
-  "base": "/bundles/berrypathflow/administration/",
+  "base": "/bundles/sidworksberrypathflow/administration/",
   "entryPoints": {
-    "berry-path-flow": {
+    "sidworks-berry-path-flow": {
       "css": [
-        "/bundles/berrypathflow/administration/assets/berry-path-flow-PmcUxjcc.css"
+        "/bundles/sidworksberrypathflow/administration/assets/sidworks-berry-path-flow-CVAuiegq.css"
       ],
       "dynamic": [],
       "js": [
-        "/bundles/berrypathflow/administration/assets/berry-path-flow-IFwlki8I.js"
+        "/bundles/sidworksberrypathflow/administration/assets/sidworks-berry-path-flow-BsB8u5bn.js"
       ],
       "legacy": false,
       "preload": []

@@ -1,4 +1,21 @@
 {
+  "berrypath-flow": {
+    "onboarding": {
+      "title": "Hi {userName}, welcome to BerryPath!",
+      "titleFallback": "Welcome to BerryPath!",
+      "intro": "Onboarding is easy with BerryPath!",
+      "steps": {
+        "account": "Create a free BerryPath account.",
+        "flow": "Create and publish a Flow, then add your Shopware storefront domain under Team → Allowed embed domains.",
+        "placement": "Add the BerryPath Flow element in Content → Shopping Experiences, or enter a Flow UUID in a product's BerryPath fields.",
+        "settings": "Configure the optional market, product ID source and assisted conversion measurement below."
+      },
+      "actions": {
+        "openBerryPath": "Open BerryPath",
+        "documentation": "Documentation"
+      }
+    }
+  },
   "sw-cms": {
     "blocks": {
       "commerce": {
@@ -9,7 +26,26 @@
     },
     "elements": {
       "berrypath-flow": {
-        "label": "BerryPath Flow"
+        "label": "BerryPath Flow",
+        "configured": "Flow UUID: {flowToken}",
+        "notConfigured": "Enter a Flow UUID to render this widget in the storefront.",
+        "fields": {
+          "flowToken": "Flow UUID",
+          "flowTokenHelp": "Copy the UUID from a published Flow in BerryPath.",
+          "viewType": "Display type",
+          "title": "Title",
+          "description": "Description",
+          "ctaText": "Button text",
+          "market": "Market override",
+          "marketHelp": "Optional. Falls back to the plugin's default market code.",
+          "locale": "Locale override",
+          "localeHelp": "Optional. Falls back to the active storefront language."
+        },
+        "viewTypes": {
+          "popup": "Popup",
+          "inline": "Inline",
+          "sidebar": "Sidebar"
+        }
       }
     }
   }

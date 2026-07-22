@@ -1,13 +1,13 @@
 {% block sw_cms_el_component_berrypath_flow %}
     <div class="sw-cms-el-component-berrypath-flow">
         <template v-if="element.config.flowToken.value">
-            <sw-alert variant="info" title="BerryPath Flow">
-                Flow UUID: {{ element.config.flowToken.value }}
+            <sw-alert variant="info" :title="$tc('sw-cms.elements.berrypath-flow.label')">
+                {{ $tc('sw-cms.elements.berrypath-flow.configured', { flowToken: element.config.flowToken.value }) }}
             </sw-alert>
         </template>
         <template v-else>
-            <sw-alert variant="warning" title="BerryPath Flow">
-                Enter a Flow UUID to render this widget in the storefront.
+            <sw-alert variant="warning" :title="$tc('sw-cms.elements.berrypath-flow.label')">
+                {{ $tc('sw-cms.elements.berrypath-flow.notConfigured') }}
             </sw-alert>
         </template>
     </div>

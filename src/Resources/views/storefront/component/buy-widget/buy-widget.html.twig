@@ -8,12 +8,12 @@
 
     {% if berryPathProductDetailFlowToken %}
         <div class="berrypath-flow-widget-buybox">
-            {% sw_include '@BerryPathFlow/storefront/component/berrypath-flow/widget.html.twig' with {
+            {% sw_include '@SidworksBerryPathFlow/storefront/component/berrypath-flow/widget.html.twig' with {
                 berryPathFlowToken: berryPathProductDetailFlowToken,
                 berryPathFlowViewType: berryPathCustomFields.berrypath_flow_display_type|default('popup'),
-                berryPathFlowTitle: berryPathCustomFields.berrypath_flow_title|default('Need help choosing?'),
-                berryPathFlowDescription: berryPathCustomFields.berrypath_flow_description|default('Answer a few short questions and quickly find the product that fits you.'),
-                berryPathFlowCtaText: berryPathCustomFields.berrypath_flow_cta_text|default('Start the choice helper'),
+                berryPathFlowTitle: berryPathCustomFields.berrypath_flow_title|default('berrypath-flow.widget.defaultTitle'|trans),
+                berryPathFlowDescription: berryPathCustomFields.berrypath_flow_description|default('berrypath-flow.widget.defaultDescription'|trans),
+                berryPathFlowCtaText: berryPathCustomFields.berrypath_flow_cta_text|default('berrypath-flow.widget.defaultCta'|trans),
                 berryPathFlowMarket: berryPathCustomFields.berrypath_flow_market|default(''),
                 berryPathFlowProduct: product,
                 berryPathFlowClass: 'berrypath-flow-widget--product-detail'

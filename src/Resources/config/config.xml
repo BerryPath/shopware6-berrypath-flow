@@ -3,6 +3,16 @@
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
 
     <card>
+        <title> </title>
+        <title lang="nl-NL"> </title>
+        <title lang="de-DE"> </title>
+
+        <component name="berrypath-flow-onboarding">
+            <name>onboarding</name>
+        </component>
+    </card>
+
+    <card>
         <title>BerryPath Flow</title>
         <title lang="nl-NL">BerryPath Flow</title>
         <title lang="de-DE">BerryPath Flow</title>
@@ -79,19 +89,19 @@
     </card>
 
     <card>
-        <title>Success pixel</title>
-        <title lang="nl-NL">Success pixel</title>
-        <title lang="de-DE">Success pixel</title>
+        <title>Assisted conversion measurement</title>
+        <title lang="nl-NL">Ondersteunde conversiemeting</title>
+        <title lang="de-DE">Unterstützte Conversion-Messung</title>
 
         <input-field type="bool">
             <name>successPixelEnabled</name>
-            <label>Enable success pixel</label>
-            <label lang="nl-NL">Success pixel inschakelen</label>
-            <label lang="de-DE">Success pixel aktivieren</label>
-            <helpText>Send BerryPath assisted conversion data on the Shopware checkout finish page.</helpText>
-            <helpText lang="nl-NL">Verstuur BerryPath geassisteerde conversiedata op de Shopware checkout finish page.</helpText>
-            <helpText lang="de-DE">Sendet BerryPath Conversion-Daten auf der Shopware Checkout-Finish-Seite.</helpText>
-            <defaultValue>true</defaultValue>
+            <label>Enable assisted conversion measurement</label>
+            <label lang="nl-NL">Ondersteunde conversiemeting inschakelen</label>
+            <label lang="de-DE">Unterstützte Conversion-Messung aktivieren</label>
+            <helpText>Send the order total and configured product identifiers to BerryPath from the checkout finish page.</helpText>
+            <helpText lang="nl-NL">Stuur het ordertotaal en de ingestelde productidentifiers vanaf de checkout-finishpagina naar BerryPath.</helpText>
+            <helpText lang="de-DE">Sendet die Bestellsumme und konfigurierten Produktkennungen von der Checkout-Abschlussseite an BerryPath.</helpText>
+            <defaultValue>false</defaultValue>
         </input-field>
     </card>
 </config>

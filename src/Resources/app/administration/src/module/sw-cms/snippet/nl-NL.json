@@ -1,4 +1,21 @@
 {
+  "berrypath-flow": {
+    "onboarding": {
+      "title": "Hoi {userName}, welkom bij BerryPath!",
+      "titleFallback": "Welkom bij BerryPath!",
+      "intro": "Onboarding is eenvoudig met BerryPath!",
+      "steps": {
+        "account": "Maak een gratis BerryPath-account aan.",
+        "flow": "Maak en publiceer een Flow en voeg daarna je Shopware-storefrontdomein toe via Team → Toegestane embed-domeinen.",
+        "placement": "Voeg het BerryPath Flow-element toe via Inhoud → Shopping Experiences, of vul een Flow-UUID in bij de BerryPath-velden van een product.",
+        "settings": "Configureer hieronder optioneel de market, product-ID-bron en ondersteunde conversiemeting."
+      },
+      "actions": {
+        "openBerryPath": "BerryPath openen",
+        "documentation": "Documentatie"
+      }
+    }
+  },
   "sw-cms": {
     "blocks": {
       "commerce": {
@@ -9,7 +26,26 @@
     },
     "elements": {
       "berrypath-flow": {
-        "label": "BerryPath Flow"
+        "label": "BerryPath Flow",
+        "configured": "Flow-UUID: {flowToken}",
+        "notConfigured": "Vul een Flow-UUID in om deze widget in de storefront te tonen.",
+        "fields": {
+          "flowToken": "Flow-UUID",
+          "flowTokenHelp": "Kopieer de UUID van een gepubliceerde Flow in BerryPath.",
+          "viewType": "Weergavetype",
+          "title": "Titel",
+          "description": "Beschrijving",
+          "ctaText": "Knoptekst",
+          "market": "Market-override",
+          "marketHelp": "Optioneel. Valt terug op de standaard marketcode uit de pluginconfiguratie.",
+          "locale": "Locale-override",
+          "localeHelp": "Optioneel. Valt terug op de actieve storefronttaal."
+        },
+        "viewTypes": {
+          "popup": "Popup",
+          "inline": "Inline",
+          "sidebar": "Zijbalk"
+        }
       }
     }
   }

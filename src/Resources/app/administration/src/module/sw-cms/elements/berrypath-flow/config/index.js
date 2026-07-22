@@ -13,9 +13,9 @@ Component.register('sw-cms-el-config-berrypath-flow', {
     computed: {
         viewTypeOptions() {
             return [
-                {value: 'popup', label: 'Popup'},
-                {value: 'inline', label: 'Inline'},
-                {value: 'sidebar', label: 'Sidebar'}
+                {value: 'popup', label: this.$tc('sw-cms.elements.berrypath-flow.viewTypes.popup')},
+                {value: 'inline', label: this.$tc('sw-cms.elements.berrypath-flow.viewTypes.inline')},
+                {value: 'sidebar', label: this.$tc('sw-cms.elements.berrypath-flow.viewTypes.sidebar')}
             ];
         }
     },

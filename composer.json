@@ -1,23 +1,24 @@
 {
     "name": "berrypath/shopware6-berrypath-flow",
-    "description": "BerryPath guided selling flows and product finders for Shopware 6.",
+    "description": "Add guided product advice to Shopping Experiences and product pages with BerryPath Flow widgets, multilingual settings and assisted conversion measurement.",
     "type": "shopware-platform-plugin",
-    "version": "1.0.0",
-    "license": "MIT",
+    "version": "1.0.1",
+    "license": "proprietary",
     "require": {
-        "shopware/core": "~6.7.0"
+        "shopware/core": "~6.7.0",
+        "shopware/storefront": "~6.7.0"
     },
     "extra": {
-        "shopware-plugin-class": "BerryPath\\Flow\\BerryPathFlow",
+        "shopware-plugin-class": "BerryPath\\Flow\\SidworksBerryPathFlow",
         "label": {
             "de-DE": "BerryPath Flow",
             "en-GB": "BerryPath Flow",
             "nl-NL": "BerryPath Flow"
         },
         "description": {
-            "de-DE": "Bindet BerryPath Flow widgets in Shopware 6 Shopping Experiences und Conversion Tracking ein.",
-            "en-GB": "Adds BerryPath Flow widgets to Shopware 6 Shopping Experiences and conversion tracking.",
-            "nl-NL": "Voegt BerryPath Flow widgets toe aan Shopware 6 Shopping Experiences en conversietracking."
+            "de-DE": "Fügen Sie geführte Produktberatung mit BerryPath Flow zu Erlebniswelten und Produktseiten hinzu – mit mehrsprachigen Einstellungen und unterstützter Conversion-Messung.",
+            "en-GB": "Add guided product advice to Shopping Experiences and product pages with BerryPath Flow widgets, multilingual settings and assisted conversion measurement.",
+            "nl-NL": "Voeg begeleid productadvies toe aan Shopping Experiences en productpagina's met BerryPath Flow-widgets, meertalige instellingen en ondersteunde conversiemeting."
         },
         "manufacturerLink": {
             "de-DE": "https://www.berrypath.eu",

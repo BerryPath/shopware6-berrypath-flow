@@ -152,11 +152,13 @@ class CustomFieldsInstaller
      * @param EntityRepository<\Shopware\Core\System\CustomField\Aggregate\CustomFieldSet\CustomFieldSetCollection> $customFieldSetRepository
      * @param EntityRepository<\Shopware\Core\System\CustomField\CustomFieldCollection> $customFieldRepository
      * @param EntityRepository<\Shopware\Core\System\CustomField\Aggregate\CustomFieldSetRelation\CustomFieldSetRelationCollection> $customFieldSetRelationRepository
+     * @param EntityRepository<\Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotCollection> $cmsSlotRepository
      */
     public function __construct(
         private readonly EntityRepository $customFieldSetRepository,
         private readonly EntityRepository $customFieldRepository,
-        private readonly EntityRepository $customFieldSetRelationRepository
+        private readonly EntityRepository $customFieldSetRelationRepository,
+        private readonly EntityRepository $cmsSlotRepository
     ) {
     }
 
@@ -185,6 +187,23 @@ class CustomFieldsInstaller
         }
 
         $this->customFieldSetRelationRepository->upsert($relations, $context);
+    }
+
+    public function uninstall(Context $context): void
+    {
+        $customFieldSetIds = $this->getCustomFieldSetIds($context);
+
+        if ($customFieldSetIds !== []) {
+            $this->customFieldSetRepository->delete($this->buildDeletePayload($customFieldSetIds), $context);
+        }
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('type', 'berrypath-flow'));
+        $cmsSlotIds = $this->cmsSlotRepository->searchIds($criteria, $context)->getIds();
+
+        if ($cmsSlotIds !== []) {
+            $this->cmsSlotRepository->delete($this->buildDeletePayload($cmsSlotIds), $context);
+        }
     }
 
     /**
@@ -235,11 +254,10 @@ class CustomFieldsInstaller
 
         $ids = [];
 
-        foreach ($this->customFieldRepository->search($criteria, $context) as $customField) {
-            if (!$customField instanceof CustomFieldEntity) {
-                continue;
-            }
+        $customFields = $this->customFieldRepository->search($criteria, $context);
 
+        /** @var CustomFieldEntity $customField */
+        foreach ($customFields as $customField) {
             $ids[$customField->getName()] = $customField->getId();
         }
 
@@ -254,5 +272,15 @@ class CustomFieldsInstaller
         $criteria->setLimit(1);
 
         return $this->customFieldSetRelationRepository->searchIds($criteria, $context)->getTotal() > 0;
+    }
+
+    /**
+     * @param list<string> $ids
+     *
+     * @return list<array{id: string}>
+     */
+    private function buildDeletePayload(array $ids): array
+    {
+        return array_map(static fn (string $id): array => ['id' => $id], $ids);
     }
 }

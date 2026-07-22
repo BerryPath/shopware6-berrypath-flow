@@ -4,60 +4,50 @@
     {{ parent() }}
 
     {% block page_checkout_main_content_berrypath_success_pixel %}
-        {% set globalEnabled = config('BerryPathFlow.config.enabled') %}
-        {% set successPixelEnabled = config('BerryPathFlow.config.successPixelEnabled') %}
+        {% set globalEnabled = config('SidworksBerryPathFlow.config.enabled') %}
+        {% set successPixelEnabled = config('SidworksBerryPathFlow.config.successPixelEnabled') %}
         {% set order = page.order %}
 
-        {% if globalEnabled is not same as(false) and successPixelEnabled is not same as(false) and order %}
-            {% set productIdSource = config('BerryPathFlow.config.productIdSource') ?: 'productNumber' %}
+        {% if globalEnabled is not same as(false) and successPixelEnabled is same as(true) and order %}
+            {% set productIdSource = config('SidworksBerryPathFlow.config.productIdSource') ?: 'productNumber' %}
+            {% set berryPathConversionItems = [] %}
 
-            <script src="https://www.berrypath.eu/embed/berrypath.js"></script>
-            <script>
-                (function () {
-                    var items = [];
-                    var seen = {};
+            {% for lineItem in order.nestedLineItems %}
+                {% if lineItem.type === 'product' %}
+                    {% set berryPathProductId = '' %}
 
-                    function addProductId(value) {
-                        value = String(value || '').trim();
+                    {% if productIdSource == 'productId' and lineItem.payload.productId is defined and lineItem.payload.productId %}
+                        {% set berryPathProductId = lineItem.payload.productId %}
+                    {% elseif productIdSource == 'referencedId' and lineItem.referencedId %}
+                        {% set berryPathProductId = lineItem.referencedId %}
+                    {% elseif productIdSource == 'parentId' and lineItem.payload.parentId is defined and lineItem.payload.parentId %}
+                        {% set berryPathProductId = lineItem.payload.parentId %}
+                    {% elseif productIdSource == 'ean' and lineItem.payload.ean is defined and lineItem.payload.ean %}
+                        {% set berryPathProductId = lineItem.payload.ean %}
+                    {% elseif productIdSource == 'manufacturerNumber' and lineItem.payload.manufacturerNumber is defined and lineItem.payload.manufacturerNumber %}
+                        {% set berryPathProductId = lineItem.payload.manufacturerNumber %}
+                    {% elseif productIdSource == 'productName' and lineItem.label %}
+                        {% set berryPathProductId = lineItem.label %}
+                    {% elseif lineItem.payload.productNumber is defined and lineItem.payload.productNumber %}
+                        {% set berryPathProductId = lineItem.payload.productNumber %}
+                    {% endif %}
 
-                        if (!value || seen[value]) {
-                            return;
-                        }
+                    {% if berryPathProductId and berryPathProductId not in berryPathConversionItems %}
+                        {% set berryPathConversionItems = berryPathConversionItems|merge([berryPathProductId]) %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
 
-                        seen[value] = true;
-                        items.push({ product_id: value });
-                    }
+            {% if berryPathConversionItems is not empty %}
+                {% set berryPathConversion = {
+                    order_total: order.amountTotal,
+                    items: berryPathConversionItems|map(productId => { product_id: productId })
+                } %}
 
-                    {% for lineItem in order.nestedLineItems %}
-                        {% if lineItem.type === 'product' %}
-                            {% if productIdSource == 'productId' and lineItem.payload.productId is defined and lineItem.payload.productId %}
-                                addProductId({{ lineItem.payload.productId|json_encode|raw }});
-                            {% elseif productIdSource == 'referencedId' and lineItem.referencedId %}
-                                addProductId({{ lineItem.referencedId|json_encode|raw }});
-                            {% elseif productIdSource == 'parentId' and lineItem.payload.parentId is defined and lineItem.payload.parentId %}
-                                addProductId({{ lineItem.payload.parentId|json_encode|raw }});
-                            {% elseif productIdSource == 'ean' and lineItem.payload.ean is defined and lineItem.payload.ean %}
-                                addProductId({{ lineItem.payload.ean|json_encode|raw }});
-                            {% elseif productIdSource == 'manufacturerNumber' and lineItem.payload.manufacturerNumber is defined and lineItem.payload.manufacturerNumber %}
-                                addProductId({{ lineItem.payload.manufacturerNumber|json_encode|raw }});
-                            {% elseif productIdSource == 'productName' and lineItem.label %}
-                                addProductId({{ lineItem.label|json_encode|raw }});
-                            {% elseif lineItem.payload.productNumber is defined and lineItem.payload.productNumber %}
-                                addProductId({{ lineItem.payload.productNumber|json_encode|raw }});
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-
-                    if (items.length === 0 || !window.BerryPath || typeof window.BerryPath.conversion !== 'function') {
-                        return;
-                    }
-
-                    window.BerryPath.conversion({
-                        order_total: {{ order.amountTotal|number_format(2, '.', '') }},
-                        items: items
-                    });
-                }());
-            </script>
+                <div data-berrypath-flow-integration
+                     data-berrypath-flow-conversion="{{ berryPathConversion|json_encode|e('html_attr') }}"
+                     hidden></div>
+            {% endif %}
         {% endif %}
     {% endblock %}
 {% endblock %}

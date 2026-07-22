@@ -1,0 +1,10 @@
+{
+  "berrypath-flow": {
+    "widget": {
+      "defaultTitle": "Need help choosing?",
+      "defaultDescription": "Answer a few short questions and quickly find the product that fits you.",
+      "defaultCta": "Start the choice helper",
+      "loadError": "The choice helper is currently unavailable. Please try again later."
+    }
+  }
+}

@@ -1,11 +1,11 @@
 {
   "main.js": {
-    "file": "assets/berry-path-flow-IFwlki8I.js",
-    "name": "berry-path-flow",
+    "file": "assets/sidworks-berry-path-flow-BsB8u5bn.js",
+    "name": "sidworks-berry-path-flow",
     "src": "main.js",
     "isEntry": true,
     "css": [
-      "assets/berry-path-flow-PmcUxjcc.css"
+      "assets/sidworks-berry-path-flow-CVAuiegq.css"
     ]
   }
 }

@@ -4,13 +4,13 @@
     {% set berryPathFlowViewType = berryPathFlowViewType in ['inline', 'popup', 'sidebar'] ? berryPathFlowViewType : 'popup' %}
     {% set berryPathFlowTitle = berryPathFlowTitle|default('') %}
     {% set berryPathFlowDescription = berryPathFlowDescription|default('') %}
-    {% set berryPathFlowCtaText = berryPathFlowCtaText|default('Start the choice helper') %}
-    {% set berryPathFlowMarket = berryPathFlowMarket|default(config('BerryPathFlow.config.defaultMarket') ?: '') %}
+    {% set berryPathFlowCtaText = berryPathFlowCtaText|default('berrypath-flow.widget.defaultCta'|trans) %}
+    {% set berryPathFlowMarket = berryPathFlowMarket|default(config('SidworksBerryPathFlow.config.defaultMarket') ?: '') %}
     {% set berryPathFlowClass = berryPathFlowClass|default('') %}
     {% set isoCode = page.header.activeLanguage.translationCode.code|default('')|lower|split('-') %}
     {% set berryPathFlowLocale = berryPathFlowLocale|default(isoCode[0]|default('')) %}
     {% set berryPathFlowProduct = berryPathFlowProduct|default(null) %}
-    {% set productIdSource = config('BerryPathFlow.config.productIdSource') ?: 'productNumber' %}
+    {% set productIdSource = config('SidworksBerryPathFlow.config.productIdSource') ?: 'productNumber' %}
     {% set currentProductId = '' %}
 
     {% if berryPathFlowProduct %}
@@ -29,9 +29,9 @@
         {% endif %}
     {% endif %}
 
-    {% if config('BerryPathFlow.config.enabled') is not same as(false) and berryPathFlowToken %}
+    {% if config('SidworksBerryPathFlow.config.enabled') is not same as(false) and berryPathFlowToken %}
         <div class="berrypath-flow-widget-wrapper"
-             data-berrypath-flow-widget>
+             data-berrypath-flow-integration>
             <div class="berrypath-flow-widget berrypath-flow-widget--{{ berryPathFlowViewType|e('html_attr') }}{% if berryPathFlowClass %} {{ berryPathFlowClass|e('html_attr') }}{% endif %}">
                 {% if berryPathFlowTitle or berryPathFlowDescription %}
                     <div class="berrypath-flow-widget__content">
@@ -70,6 +70,13 @@
                         </button>
                     {% endif %}
                 </div>
+
+                <p class="berrypath-flow-widget__error alert alert-danger"
+                   data-berrypath-flow-error
+                   role="alert"
+                   hidden>
+                    {{ 'berrypath-flow.widget.loadError'|trans }}
+                </p>
             </div>
         </div>
     {% endif %}

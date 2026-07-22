@@ -1,0 +1,42 @@
+<sw-container class="berrypath-flow-onboarding" gap="16px" columns="3fr 1fr">
+    <div>
+        <div class="berrypath-flow-onboarding__title">
+            <template v-if="userName">
+                {{ $tc('berrypath-flow.onboarding.title', { userName: userName }) }}
+            </template>
+            <template v-else>
+                {{ $tc('berrypath-flow.onboarding.titleFallback') }}
+            </template>
+        </div>
+
+        <div class="berrypath-flow-onboarding__description">
+            <p>{{ $tc('berrypath-flow.onboarding.intro') }}</p>
+
+            <ol class="berrypath-flow-onboarding__steps">
+                <li>
+                    {{ $tc('berrypath-flow.onboarding.steps.account') }}<br>
+                    <sw-external-link href="https://app.berrypath.eu/register">
+                        https://app.berrypath.eu/register
+                    </sw-external-link>
+                </li>
+                <li>{{ $tc('berrypath-flow.onboarding.steps.flow') }}</li>
+                <li>{{ $tc('berrypath-flow.onboarding.steps.placement') }}</li>
+                <li>{{ $tc('berrypath-flow.onboarding.steps.settings') }}</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="berrypath-flow-onboarding__actions">
+        <sw-button class="berrypath-flow-onboarding__action"
+                   link="https://app.berrypath.eu/">
+            <sw-icon name="regular-external-link-s" size="14px"></sw-icon>
+            {{ $tc('berrypath-flow.onboarding.actions.openBerryPath') }}
+        </sw-button>
+
+        <sw-button class="berrypath-flow-onboarding__action"
+                   link="https://www.berrypath.eu/docs/shopware-plugin">
+            <sw-icon name="regular-file" size="14px"></sw-icon>
+            {{ $tc('berrypath-flow.onboarding.actions.documentation') }}
+        </sw-button>
+    </div>
+</sw-container>

@@ -1,17 +1,17 @@
 {% block element_berrypath_flow %}
-    {% set globalEnabled = config('BerryPathFlow.config.enabled') %}
+    {% set globalEnabled = config('SidworksBerryPathFlow.config.enabled') %}
     {% set elementConfig = element.fieldConfig.elements %}
     {% set flowToken = elementConfig.flowToken.value|default('') %}
 
     {% if globalEnabled is not same as(false) and flowToken %}
         <div class="cms-element-{{ element.type }}"
              data-berrypath-cms-element>
-            {% sw_include '@BerryPathFlow/storefront/component/berrypath-flow/widget.html.twig' with {
+            {% sw_include '@SidworksBerryPathFlow/storefront/component/berrypath-flow/widget.html.twig' with {
                 berryPathFlowToken: flowToken,
                 berryPathFlowViewType: elementConfig.viewType.value|default('popup'),
                 berryPathFlowTitle: elementConfig.title.value|default(''),
                 berryPathFlowDescription: elementConfig.description.value|default(''),
-                berryPathFlowCtaText: elementConfig.ctaText.value|default('Start the choice helper'),
+                berryPathFlowCtaText: elementConfig.ctaText.value|default('berrypath-flow.widget.defaultCta'|trans),
                 berryPathFlowMarket: elementConfig.market.value|default(''),
                 berryPathFlowLocale: elementConfig.locale.value|default(''),
                 berryPathFlowProduct: page.product|default(null)
